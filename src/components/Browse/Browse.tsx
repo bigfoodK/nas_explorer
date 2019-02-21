@@ -1,6 +1,7 @@
 import React from 'react';
 import { RouteProps } from 'react-router-dom';
 import { FileIndex, BrowseProps, BrowseStates } from './browseInterfaces';
+import FileItemList from './FileItemList';
 
 export default class Browse extends React.Component<BrowseProps & RouteProps, BrowseStates> {
   constructor(props: BrowseProps & RouteProps) {
@@ -9,24 +10,30 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
     this.state = {
       fileIndexes: [],
     };
+    
+    this.renewFileIndexesState = this.renewFileIndexesState.bind(this);
+    this.renewFileIndexesState(`/${this.props.match.params.path || ''}`);
+  }
 
-    const directoryPath = props.match.params.path || '';
+  renewFileIndexesState(directoryPath: string) {
     // URL for debug client, If you found it, Remove it
-    const directoryUrl = `http://localhost:3000/index/${directoryPath}`;
+    const directoryUrl = `http://localhost:3000/index${directoryPath}`;
 
     getFileIndexes(directoryUrl)
     .then(result => {
       this.setState({
         fileIndexes: result,
       });
-      console.log(result);
     });
   }
 
   render() {
     return (
-      <div className="Browse">
-        <h1></h1>
+      <div className="browse">
+        <FileItemList 
+          fileIndexes = {this.state.fileIndexes}
+          renewFileIndexesState = {this.renewFileIndexesState}
+        />
       </div>
     );
   }

@@ -20,3 +20,13 @@ export interface BrowseProps {
 export interface BrowseStates {
   fileIndexes: FileIndex[];
 }
+
+export interface FileItemProps {
+  fileIndex: FileIndex;
+  renewFileIndexesState: (directoryPath: string) => void;
+}
+
+export interface FileItemListProps {
+  fileIndexes: FileIndex[];
+  renewFileIndexesState: (directoryPath: string) => void;
+}
