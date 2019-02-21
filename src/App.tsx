@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Browse from './components/Browse';
+import Browse from './components/Browse/Browse';
 import './App.css';
 
 class App extends Component {

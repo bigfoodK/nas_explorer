@@ -1,26 +1,6 @@
 import React from 'react';
-import { RouteProps, match } from 'react-router-dom';
-
-type BrowseProps = {
-  match: match & {
-    params: {
-      path: string;
-    }
-  };
-}
-
-type BrowseStates = {
-  fileIndexes: FileIndex[];
-}
-
-interface FileIndex {
-  type: ('directory' | 'text' | 'image' | 'audio' | 'video' | 'binary');
-  name: string;
-  path: string;
-  size: number;
-  createdAtMs: Date;
-  modifiedAtMs: Date;
-}
+import { RouteProps } from 'react-router-dom';
+import { FileIndex, BrowseProps, BrowseStates } from './browseInterfaces';
 
 export default class Browse extends React.Component<BrowseProps & RouteProps, BrowseStates> {
   constructor(props: BrowseProps & RouteProps) {
@@ -31,6 +11,7 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
     };
 
     const directoryPath = props.match.params.path || '';
+    // URL for debug client, If you found it, Remove it
     const directoryUrl = `http://localhost:3000/index/${directoryPath}`;
 
     getFileIndexes(directoryUrl)
