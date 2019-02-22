@@ -29,3 +29,8 @@ export interface VideoStates {
 export interface VideoPlayerProps {
   videoObjectUrl: string | null;
 }
+
+export interface MenuProps {
+  nextVideo: FileIndex | null;
+  previousVideo: FileIndex | null;
+}

@@ -3,6 +3,7 @@ import Path from 'path';
 import { RouteProps } from 'react-router-dom';
 import { FileIndex, BrowseProps, BrowseStates } from './browseInterfaces';
 import FileItemList from './FileItemList';
+import './Browse.css';
 
 export default class Browse extends React.Component<BrowseProps & RouteProps, BrowseStates> {
   constructor(props: BrowseProps & RouteProps) {

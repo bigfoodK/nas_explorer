@@ -8,20 +8,25 @@
 
 .menu-item-container-left {
   float: left;
+  max-width: 45%;
 }
 
 .menu-item-container-right {
   float: right;
+  max-width: 45%;
 }
 
 .menu-item {
   color: #EEE;
+  background-color: #333;
   cursor: pointer;
   display: block;
-  text-align: center;
   padding: 14px 16px;
+  text-align: center;
+  text-overflow: ellipsis;
   text-decoration: none;
-  background-color: #333;
+  white-space: nowrap;
+  overflow: hidden; 
 }
 
 .available:hover {

@@ -9,7 +9,7 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, any> 
 
   render() {
     return (
-      <div className = 'video'>
+      <div className = 'video-player'>
         <video 
           src={this.props.videoObjectUrl || ''} 
           autoPlay

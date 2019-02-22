@@ -1,6 +1,64 @@
+.file-item-container {
+  margin: 4px 0px 0px 0px;
+}
+
 .file-item {
-  border-style: solid;
-  border-width: 1px;
-  border-color: black;
-  padding: 5px;
-};
+  display: block;
+  color: #EEE;
+  text-decoration: none;
+  padding: 8px 8px;
+  background-color: #333;
+  white-space: nowrap;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.file-item:hover {
+  background-color: #444;
+}
+
+.file-type {
+  float: left;
+  width: calc(5% - 4px);
+  max-width: 1.5em;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-right: 4px;
+}
+
+.file-name {
+  float: left;
+  width: calc(40% - 8px);
+  text-align: left;
+  padding-left: 8px;
+}
+
+.file-size {
+  float: right;
+  width: 10%;
+  text-align: right;
+}
+
+.file-createdAt {
+  float: right;
+  width: calc(15% - 8px);
+  text-align: right;
+  padding-left: 8px;
+}
+
+.file-modifiedAt {
+  float: right;
+  width: calc(15% - 8px);
+  text-align: right;
+  padding-left: 8px;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

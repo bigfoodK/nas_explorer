@@ -17,9 +17,9 @@ export default class FileItemList extends React.Component<FileItemListProps, any
     });
     
     return (
-      <div className='file-item-list'>
+      <ul className='file-item-list'>
         {fileItemList}
-      </div>
+      </ul>
     );
   }
 }
