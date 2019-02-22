@@ -19,7 +19,9 @@ export interface VideoProps {
 
 export interface VideoStates {
   videos: FileIndex[];
+  nextVideo: FileIndex | null;
   currentVideo: FileIndex | null;
+  previousVideo: FileIndex | null;
   currentVideoObjectUrl: string | null;
 }
 

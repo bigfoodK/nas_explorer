@@ -11,7 +11,9 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
 
     this.state = {
       videos: [],
+      nextVideo: null,
       currentVideo: null,
+      previousVideo: null,
       currentVideoObjectUrl: null,
     };
 
@@ -34,9 +36,16 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
     .then(fileIndexes => {
       const videos = fileIndexes.filter(fileIndex => fileIndex.type === 'video');
       
-      const foundtVideo = videos.find(fileIndex => fileIndex.path === videoPath);
-      if(!foundtVideo) throw Error('Video not found');
-      const currentVideo = foundtVideo;
+      const currentVideoIndex = videos.findIndex(fileIndex => fileIndex.path === videoPath);
+      if(!currentVideoIndex) throw Error('Video not found');
+
+      const nextVideo = currentVideoIndex - 1 >= 0
+        ? videos[currentVideoIndex - 1]
+        : null;
+      const currentVideo = videos[currentVideoIndex];
+      const previousVideo = currentVideoIndex + 1 < videos.length
+        ? videos[currentVideoIndex + 1]
+        : null;
       
       getVideoObjectUrlAsync(videoUrl)
       .then(videoObjectUrl => {
@@ -44,7 +53,9 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
 
         this.setState({
           videos: videos,
+          nextVideo: nextVideo,
           currentVideo: currentVideo,
+          previousVideo: previousVideo,
           currentVideoObjectUrl: currentVideoObjectUrl,
         });
       });
