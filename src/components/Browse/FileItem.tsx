@@ -1,14 +1,12 @@
 import React from 'react';
 import Path from 'path';
-import { FileItemProps, FileIndex } from './browseInterfaces';
+import { FileItemProps } from './browseInterfaces';
+import { FileIndex } from '../../commonInterfaces';
+import { getReadableStringFromByteSize, getLocaleStringFromMs } from '../../commonUtils';
 import { Link } from 'react-router-dom'
 import './FileItem.css';
 
 export default class FileItem extends React.Component<FileItemProps, any> {
-  constructor(props: FileItemProps) {
-    super(props);
-  }
-
   render() {
     const fileIndex = this.props.fileIndex;
     const url = getProperUrl(fileIndex);
@@ -32,7 +30,7 @@ export default class FileItem extends React.Component<FileItemProps, any> {
     }
 
     const fileSize = () => {
-      const size = byteToReadableString(fileIndex.size);
+      const size = getReadableStringFromByteSize(fileIndex.size);
       return (
         <div className='file-size text-ellipsis'
           title = {size}>
@@ -42,7 +40,7 @@ export default class FileItem extends React.Component<FileItemProps, any> {
     }
 
     const fileCreatedAt = () => {
-      const date = msToDate(fileIndex.createdAtMs);
+      const date = getLocaleStringFromMs(fileIndex.createdAtMs);
       return (
         <div className='file-createdAt text-ellipsis'
           title = {date}>
@@ -52,7 +50,7 @@ export default class FileItem extends React.Component<FileItemProps, any> {
     }
 
     const fileModifiedAt = () => {
-      const date = msToDate(fileIndex.modifiedAtMs);
+      const date = getLocaleStringFromMs(fileIndex.modifiedAtMs);
       return (
         <div className='file-modifiedAt text-ellipsis'
           title = {date}>
@@ -119,34 +117,4 @@ function getProperTypeIcon(fileIndex: FileIndex) {
     default:
       return <i className = "fas fa-file-download" />
   }
-}
-
-function msToDate(ms: number) {
-  const date = new Date(ms);
-  return date.toLocaleString();
-}
-
-function byteToReadableString(byte: number) {
-  const unitTable = [
-    'B',
-    'KiB',
-    'MiB',
-    'GiB',
-    'TiB',
-    'PiB',
-    'EiB',
-    'ZiB',
-    'YiB',
-  ];
-
-  let unit = 0;
-  let value = byte;
-
-  while (value > 1024) {
-    if(unit >= 8) return;
-    unit += 1;
-    value /= 1024;
-  }
-
-  return `${value.toFixed(1)} ${unitTable[unit]}`
 }

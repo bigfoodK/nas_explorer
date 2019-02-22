@@ -1,13 +1,5 @@
 import { match } from 'react-router-dom';
-
-export interface FileIndex {
-  type: ('directory' | 'text' | 'image' | 'audio' | 'video' | 'binary');
-  name: string;
-  path: string;
-  size: number;
-  createdAtMs: number;
-  modifiedAtMs: number;
-}
+import { FileIndex } from '../../commonInterfaces';
 
 export interface BrowseProps {
   match: match & {
