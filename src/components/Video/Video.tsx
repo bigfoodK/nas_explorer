@@ -10,6 +10,7 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
     super(props);
 
     this.state = {
+      sortBy: 'name',
       videos: [],
       nextVideo: null,
       currentVideo: null,
@@ -35,9 +36,10 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
     getVideoIndexes(directoryUrl)
     .then(fileIndexes => {
       const videos = fileIndexes.filter(fileIndex => fileIndex.type === 'video');
+      videos.sort(sortCompareFunctions('name'));
       
       const currentVideoIndex = videos.findIndex(fileIndex => fileIndex.path === videoPath);
-      if(!currentVideoIndex) throw Error('Video not found');
+      if(currentVideoIndex === -1) throw Error('Video not found');
 
       const nextVideo = currentVideoIndex - 1 >= 0
         ? videos[currentVideoIndex - 1]
@@ -52,6 +54,7 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
         const currentVideoObjectUrl = videoObjectUrl;
 
         this.setState({
+          sortBy: this.state.sortBy,
           videos: videos,
           nextVideo: nextVideo,
           currentVideo: currentVideo,
@@ -106,4 +109,44 @@ function readFileAsTextAsync(blob: Blob): Promise<string> {
 
     reader.readAsText(blob);
   });
+}
+
+function sortCompareFunctions(sortBy: string) {
+  const typeOrder = {
+    directory: 0,
+    text: 1,
+    image: 2,
+    audio: 3,
+    video: 4,
+    binary: 5,
+  };
+
+  switch (sortBy) {
+    case 'type':
+      return (a:FileIndex, b:FileIndex) => {
+        return typeOrder[a.type] - typeOrder[b.type];
+      }
+
+    case 'size':
+      return (a:FileIndex, b:FileIndex) => {
+        return a.size - b.size;
+      }
+
+    case 'createdAt':
+      return (a:FileIndex, b:FileIndex) => {
+        return a.createdAtMs - b.createdAtMs;
+      }
+    
+    case 'modifiedAt':
+      return (a:FileIndex, b:FileIndex) => {
+        return a.modifiedAtMs - b.modifiedAtMs;
+      }
+
+    default:
+      return (a:FileIndex, b:FileIndex) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      }
+  }
 }

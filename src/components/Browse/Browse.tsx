@@ -9,6 +9,7 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
     super(props);
 
     this.state = {
+      sortBy: 'name',
       fileIndexes: [],
     };
     
@@ -26,7 +27,9 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
 
     getFileIndexes(directoryUrl)
     .then(result => {
+      result.sort(sortCompareFunctions('createdAt'));
       this.setState({
+        sortBy: this.state.sortBy,
         fileIndexes: result,
       });
     });
@@ -69,4 +72,44 @@ function readFileAsTextAsync(blob: Blob): Promise<string> {
 
     reader.readAsText(blob);
   });
+}
+
+function sortCompareFunctions(sortBy: string) {
+  const typeOrder = {
+    directory: 0,
+    text: 1,
+    image: 2,
+    audio: 3,
+    video: 4,
+    binary: 5,
+  };
+
+  switch (sortBy) {
+    case 'type':
+      return (a:FileIndex, b:FileIndex) => {
+        return typeOrder[a.type] - typeOrder[b.type];
+      }
+
+    case 'size':
+      return (a:FileIndex, b:FileIndex) => {
+        return a.size - b.size;
+      }
+
+    case 'createdAt':
+      return (a:FileIndex, b:FileIndex) => {
+        return a.createdAtMs - b.createdAtMs;
+      }
+    
+    case 'modifiedAt':
+      return (a:FileIndex, b:FileIndex) => {
+        return a.modifiedAtMs - b.modifiedAtMs;
+      }
+
+    default:
+      return (a:FileIndex, b:FileIndex) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      }
+  }
 }

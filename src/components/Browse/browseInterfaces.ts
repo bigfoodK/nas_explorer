@@ -18,6 +18,7 @@ export interface BrowseProps {
 }
 
 export interface BrowseStates {
+  sortBy: string;
   fileIndexes: FileIndex[];
 }
 

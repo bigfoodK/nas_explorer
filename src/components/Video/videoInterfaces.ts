@@ -18,6 +18,7 @@ export interface VideoProps {
 }
 
 export interface VideoStates {
+  sortBy: string;
   videos: FileIndex[];
   nextVideo: FileIndex | null;
   currentVideo: FileIndex | null;
