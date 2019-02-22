@@ -22,10 +22,10 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
 
   renewVideoState() {
     const videoPath = Path.join('/', this.props.match.params.path);
-    const directoryPath = Path.join('/', videoPath, '..');
+    const directoryPath = Path.join(videoPath, '..');
     // URL for debug client, If you found it, Remove it
-    const videoUrl = `http://localhost:3000/data${videoPath}`;
-    const directoryUrl = `http://localhost:3000/index${directoryPath}`;
+    const videoUrl = 'http://localhost:3000' + Path.join('/data', videoPath);
+    const directoryUrl = 'http://localhost:3000' + Path.join('/index', directoryPath);
 
     getVideoIndexes(directoryUrl)
     .then(fileIndexes => {
