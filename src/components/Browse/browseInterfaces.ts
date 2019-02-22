@@ -5,8 +5,8 @@ export interface FileIndex {
   name: string;
   path: string;
   size: number;
-  createdAtMs: Date;
-  modifiedAtMs: Date;
+  createdAtMs: number;
+  modifiedAtMs: number;
 }
 
 export interface BrowseProps {
