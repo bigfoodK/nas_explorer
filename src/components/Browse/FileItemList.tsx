@@ -4,12 +4,8 @@ import FileItem from './FileItem';
 import './FileItemList.css';
 
 export default class FileItemList extends React.Component<FileItemListProps, any> {
-  props: FileItemListProps;
-
   constructor(props: FileItemListProps) {
     super(props);
-
-    this.props = props;
   }
 
   render() {
