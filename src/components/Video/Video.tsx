@@ -3,6 +3,7 @@ import Path from 'path';
 import { RouteProps } from 'react-router-dom';
 import { VideoProps, VideoStates, FileIndex } from './videoInterfaces';
 import VideoPlayer from './VideoPlayer';
+import Menu from './Menu';
 import './Video.css';
 
 export default class Video extends React.Component<RouteProps & VideoProps, VideoStates> {
@@ -70,6 +71,11 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
       <div className = 'video'>
         <VideoPlayer
           videoObjectUrl = { this.state.currentVideoObjectUrl }
+        />
+        <div className='dvider' />
+        <Menu 
+          nextVideo = {this.state.nextVideo}
+          previousVideo = {this.state.previousVideo}
         />
       </div>
     );

@@ -1,0 +1,34 @@
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #222;
+}
+
+.menu-item-container-left {
+  float: left;
+}
+
+.menu-item-container-right {
+  float: right;
+}
+
+.menu-item {
+  color: #EEE;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: #333;
+}
+
+.available:hover {
+  background-color: #444;
+}
+
+.unavailable {
+  cursor: default;
+  color: #555;
+}
