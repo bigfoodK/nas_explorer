@@ -16,12 +16,15 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
     };
 
     this.renewVideoState = this.renewVideoState.bind(this);
-
-    this.renewVideoState();
+    this.renewVideoState(this.props.match.params.path);
   }
 
-  renewVideoState() {
-    const videoPath = Path.join('/', this.props.match.params.path);
+  componentWillReceiveProps(nextProps: RouteProps & VideoProps) {
+    this.renewVideoState(nextProps.match.params.path);
+  }
+
+  renewVideoState(rawVideoPath: string) {
+    const videoPath = Path.join('/', rawVideoPath);
     const directoryPath = Path.join(videoPath, '..');
     // URL for debug client, If you found it, Remove it
     const videoUrl = 'http://localhost:3000' + Path.join('/data', videoPath);

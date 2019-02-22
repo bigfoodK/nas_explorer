@@ -12,10 +12,10 @@ export default class FileItemList extends React.Component<FileItemListProps, any
     const fileItemList = this.props.fileIndexes.map(fileIndex => {
       return (<FileItem 
         fileIndex = {fileIndex}
-        renewFileIndexesState = {this.props.renewFileIndexesState}
         key = {fileIndex.path} 
       />)
     });
+    
     return (
       <div className='file-item-list'>
         {fileItemList}

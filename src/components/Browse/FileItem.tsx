@@ -17,7 +17,6 @@ export default class FileItem extends React.Component<FileItemProps, any> {
       <div className='file-item'>
         <Link 
           to={url} 
-          onClick={() => this.props.renewFileIndexesState(fileIndex.path)}
         >
           {fileIndex.name}, {fileIndex.size}, {fileIndex.type}
         </Link>

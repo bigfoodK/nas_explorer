@@ -16,6 +16,10 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
     this.renewFileIndexesState(this.props.match.params.path);
   }
 
+  componentWillReceiveProps(nextProps: BrowseProps & RouteProps) {
+    this.renewFileIndexesState(nextProps.match.params.path);
+  }
+
   renewFileIndexesState(directoryPath: string) {
     // URL for debug client, If you found it, Remove it
     const directoryUrl = 'http://localhost:3000' + Path.join('/index', directoryPath || '');
@@ -33,7 +37,6 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
       <div className="browse">
         <FileItemList 
           fileIndexes = {this.state.fileIndexes}
-          renewFileIndexesState = {this.renewFileIndexesState}
         />
       </div>
     );
