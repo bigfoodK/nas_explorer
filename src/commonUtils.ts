@@ -97,3 +97,23 @@ export function getLocaleStringFromMs(ms: number) {
   const date = new Date(ms);
   return date.toLocaleString();
 }
+
+export function getStringFromSecond(rawSecond: number) {
+  let second = rawSecond;
+  let minute = 0;
+  let hour = 0;
+
+  minute = second / 60;
+  hour = minute / 60;
+  second %= 60;
+  minute %= 60;
+  
+  // Padding left with 0
+  const secondString = (`0${second.toFixed(0)}`).slice(-2);
+  const minuteString = (`0${minute.toFixed(0)}`).slice(-2);
+  const hourString = (`0${hour.toFixed(0)}`).slice(-2);
+
+  return hour < 1
+    ? `${minuteString}:${secondString}`
+    : `${hourString}:${minuteString}:${secondString}`
+}
