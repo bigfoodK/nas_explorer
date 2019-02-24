@@ -192,7 +192,7 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
         ref = {this.self}
       >
         <video 
-          src = { this.props.videoObjectUrl || '' } 
+          src = { this.props.videoUrl || '' } 
           ref = { this.video }
           onClick = { this.handlePlayButtonClick }
           autoPlay

@@ -16,12 +16,12 @@ export interface VideoStates {
   nextVideo: FileIndex | null;
   currentVideo: FileIndex | null;
   previousVideo: FileIndex | null;
+  currentVideoUrl: string | null;
   currentSubtitle: FileIndex | null;
-  currentVideoObjectUrl: string | null;
 }
 
 export interface VideoPlayerProps {
-  videoObjectUrl: string | null;
+  videoUrl: string | null;
   subtitle: FileIndex | null;
 }
 

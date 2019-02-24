@@ -18,9 +18,8 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
       nextVideo: null,
       currentVideo: null,
       previousVideo: null,
+      currentVideoUrl: null,
       currentSubtitle: null,
-      currentVideoObjectUrl: null,
-      
     };
 
     this.renewVideoState = this.renewVideoState.bind(this);
@@ -63,18 +62,15 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
         return true;
       }) || null;
 
-      getObjectUrlAsync(videoUrl)
-        .then(currentVideoObjectUrl => {
-          this.setState({
-            sortBy: this.state.sortBy,
-            videos: videos,
-            nextVideo: nextVideo,
-            currentVideo: currentVideo,
-            previousVideo: previousVideo,
-            currentSubtitle: currentSubtitle,
-            currentVideoObjectUrl: currentVideoObjectUrl,
-          })
-        })
+      this.setState({
+        sortBy: this.state.sortBy,
+        videos: videos,
+        nextVideo: nextVideo,
+        currentVideo: currentVideo,
+        previousVideo: previousVideo,
+        currentVideoUrl: videoUrl,
+        currentSubtitle: currentSubtitle,
+      })
     });
   }
 
@@ -83,7 +79,7 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
       <div className = 'video'>
         <VideoPlayer
           subtitle = { this.state.currentSubtitle }
-          videoObjectUrl = { this.state.currentVideoObjectUrl }
+          videoUrl = { this.state.currentVideoUrl }
         />
         <div className='dvider' />
         <Menu 
@@ -93,11 +89,4 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
       </div>
     );
   }
-}
-
-async function getObjectUrlAsync(url: string): Promise<string> {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  const objectUrl = URL.createObjectURL(blob);
-  return objectUrl;
 }
