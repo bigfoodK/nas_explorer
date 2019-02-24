@@ -5,6 +5,7 @@ import { FileIndex } from '../../commonInterfaces';
 import { getReadableStringFromByteSize, getLocaleStringFromMs } from '../../commonUtils';
 import { Link } from 'react-router-dom'
 import './FileItem.css';
+import config from '../../config';
 
 export default class FileItem extends React.Component<FileItemProps, any> {
   render() {
@@ -78,22 +79,22 @@ function getProperUrl(fileIndex: FileIndex) {
 
   switch(fileIndex.type) {
     case 'directory':
-      return Path.join('/explore/browse', filePath);
+      return Path.join(config.browseUrlPrefix, filePath);
 
     case 'text':
-      return Path.join('/explore/text', filePath);
+      return Path.join(config.textUrlPrefix, filePath);
 
     case 'image':
-      return Path.join('/explore/image', filePath);
+      return Path.join(config.imageUrlPrefix, filePath);
 
     case 'audio':
-      return Path.join('/explore/audio', filePath);
+      return Path.join(config.audioUrlPrefix, filePath);
 
     case 'video':
-      return Path.join('/explore/video', filePath);
+      return Path.join(config.videoUrlPrefix, filePath);
 
     default:
-      return Path.join('/explore/download', filePath);
+      return Path.join(config.downloadUrlPrefix, filePath);
   }
 }
 

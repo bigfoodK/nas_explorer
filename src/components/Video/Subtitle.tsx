@@ -5,6 +5,7 @@ import { SubtitleProps, SubtitleStates } from './videoInterfaces';
 import { FileIndex } from '../../commonInterfaces';
 import { readFileAsTextAsync } from '../../commonUtils';
 import './Subtitle.css';
+import config from '../../config';
 
 export default class Subtitle extends React.Component<SubtitleProps, SubtitleStates> {
   subtitle: SubtitleFragment[];
@@ -41,7 +42,7 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
   async getSubtitle(subtitle: FileIndex | null) {
     if(!subtitle) return;
 
-    const subtitleUrl = 'http://localhost:3000' + Path.join('/data' , subtitle.path);
+    const subtitleUrl = config.debugHost + Path.join(config.dataUrlPrefix , subtitle.path);
     const samiParseResult = await getSubtitleAsync(subtitleUrl);
     this.subtitle = samiParseResult.result;
   }

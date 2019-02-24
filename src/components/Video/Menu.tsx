@@ -4,6 +4,7 @@ import { MenuProps } from './videoInterfaces';
 import { FileIndex } from '../../commonInterfaces';
 import { Link } from 'react-router-dom';
 import './Menu.css';
+import config from '../../config';
 
 export default class Menu extends React.Component<MenuProps, any> {
   render() {
@@ -24,7 +25,7 @@ export default class Menu extends React.Component<MenuProps, any> {
 }
 
 function getUrl(filePath: string) {
-  return Path.join('/explore/video', filePath);
+  return Path.join(config.videoUrlPrefix, filePath);
 }
 
 function generateMenuItem(video: FileIndex | null) {

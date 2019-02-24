@@ -5,6 +5,7 @@ import { BrowseProps, BrowseStates } from './browseInterfaces';
 import { getFileIndexesAsync, getFileIndexCompareFunction } from '../../commonUtils';
 import FileItemList from './FileItemList';
 import './Browse.css';
+import config from '../../config';
 
 export default class Browse extends React.Component<BrowseProps & RouteProps, BrowseStates> {
   constructor(props: BrowseProps & RouteProps) {
@@ -24,8 +25,7 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
   }
 
   renewFileIndexesState(directoryPath: string) {
-    // URL for debug client, If you found it, Remove it
-    const directoryUrl = 'http://localhost:3000' + Path.join('/index', directoryPath || '');
+    const directoryUrl = config.debugHost + Path.join(config.indexUrlPrefix, directoryPath || '');
 
     getFileIndexesAsync(directoryUrl)
     .then(result => {

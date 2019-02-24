@@ -6,6 +6,7 @@ import { getFileIndexesAsync, getFileIndexCompareFunction } from '../../commonUt
 import VideoPlayer from './VideoPlayer';
 import Menu from './Menu';
 import './Video.css';
+import config from '../../config';
 
 export default class Video extends React.Component<RouteProps & VideoProps, VideoStates> {
   constructor(props: RouteProps & VideoProps) {
@@ -33,9 +34,8 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
   renewVideoState(rawVideoPath: string) {
     const videoPath = Path.join('/', rawVideoPath);
     const directoryPath = Path.join(videoPath, '..');
-    // URL for debug client, If you found it, Remove it
-    const videoUrl = 'http://localhost:3000' + Path.join('/data', videoPath);
-    const directoryUrl = 'http://localhost:3000' + Path.join('/index', directoryPath);
+    const videoUrl = config.debugHost + Path.join(config.dataUrlPrefix, videoPath);
+    const directoryUrl = config.debugHost + Path.join(config.indexUrlPrefix, directoryPath);
 
     getFileIndexesAsync(directoryUrl)
     .then(fileIndexes => {
