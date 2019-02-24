@@ -16,11 +16,13 @@ export interface VideoStates {
   nextVideo: FileIndex | null;
   currentVideo: FileIndex | null;
   previousVideo: FileIndex | null;
+  currentSubtitle: FileIndex | null;
   currentVideoObjectUrl: string | null;
 }
 
 export interface VideoPlayerProps {
   videoObjectUrl: string | null;
+  subtitle: FileIndex | null;
 }
 
 export interface VideoPlayerStates {
@@ -52,4 +54,13 @@ export interface ControlProps {
   handleVolumeButtonClick: () => void;
   handleVolumeChange: (event: React.FormEvent<HTMLInputElement>) => void;
   handleTimeChange: (event: React.FormEvent<HTMLInputElement>) => void;
+}
+
+export interface SubtitleProps {
+  videoTime: number;
+  subtitle: FileIndex | null;
+}
+
+export interface SubtitleStates {
+  subtitleText: JSX.Element[];
 }

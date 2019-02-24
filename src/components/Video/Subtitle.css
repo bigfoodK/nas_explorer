@@ -1,0 +1,21 @@
+.subtitle {
+  position: absolute;
+  bottom: 1em;
+  z-index: 2;
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-size: calc(((1vmax + 1vmin) / 2 ) * 3);
+  vertical-align: middle;
+  pointer-events: none;
+  /* TODO: 씨이이뻘 이게 말이 돼? 이 방법 말고는 없어? 진심이야? */
+  text-shadow: 
+  -1px -1px calc(((1vmax + 1vmin) / 2 ) * 0.5) black,
+  0px -1px calc(((1vmax + 1vmin) / 2 ) * 0.5) black,
+  1px -1px calc(((1vmax + 1vmin) / 2 ) * 0.5) black,
+  1px 0px calc(((1vmax + 1vmin) / 2 ) * 0.5) black,
+  1px 1px calc(((1vmax + 1vmin) / 2 ) * 0.5) black,
+  0px 1px calc(((1vmax + 1vmin) / 2 ) * 0.5) black,
+  -1px 1px calc(((1vmax + 1vmin) / 2 ) * 0.5) black,
+  -1px 0px calc(((1vmax + 1vmin) / 2 ) * 0.5) black;
+}

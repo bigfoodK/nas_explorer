@@ -17,7 +17,9 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
       nextVideo: null,
       currentVideo: null,
       previousVideo: null,
+      currentSubtitle: null,
       currentVideoObjectUrl: null,
+      
     };
 
     this.renewVideoState = this.renewVideoState.bind(this);
@@ -51,19 +53,28 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
         ? videos[currentVideoIndex + 1]
         : null;
       
-      getVideoObjectUrlAsync(videoUrl)
-      .then(videoObjectUrl => {
-        const currentVideoObjectUrl = videoObjectUrl;
+      // TODO Path.parse가 함수가 아니래요. 아셨어요? 전 몰랐는데...
+      const currentVideoName = Path.basename(currentVideo.name, Path.extname(currentVideo.name));
 
-        this.setState({
-          sortBy: this.state.sortBy,
-          videos: videos,
-          nextVideo: nextVideo,
-          currentVideo: currentVideo,
-          previousVideo: previousVideo,
-          currentVideoObjectUrl: currentVideoObjectUrl,
-        });
-      });
+      const currentSubtitle = fileIndexes.find(fileIndex => {
+        const extName = Path.extname(fileIndex.name);
+        if(extName !== ('.smi' || '.SMI')) return false;
+        if(Path.basename(fileIndex.name, extName) !== currentVideoName) return false;
+        return true;
+      }) || null;
+
+      getObjectUrlAsync(videoUrl)
+        .then(currentVideoObjectUrl => {
+          this.setState({
+            sortBy: this.state.sortBy,
+            videos: videos,
+            nextVideo: nextVideo,
+            currentVideo: currentVideo,
+            previousVideo: previousVideo,
+            currentSubtitle: currentSubtitle,
+            currentVideoObjectUrl: currentVideoObjectUrl,
+          })
+        })
     });
   }
 
@@ -71,6 +82,7 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
     return (
       <div className = 'video'>
         <VideoPlayer
+          subtitle = { this.state.currentSubtitle }
           videoObjectUrl = { this.state.currentVideoObjectUrl }
         />
         <div className='dvider' />
@@ -83,9 +95,9 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
   }
 }
 
-async function getVideoObjectUrlAsync(videoUrl: string): Promise<string> {
-  const response = await fetch(videoUrl);
-  const videoBlob = await response.blob();
-  const videoObjectUrl = URL.createObjectURL(videoBlob);
-  return videoObjectUrl;
+async function getObjectUrlAsync(url: string): Promise<string> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  const objectUrl = URL.createObjectURL(blob);
+  return objectUrl;
 }

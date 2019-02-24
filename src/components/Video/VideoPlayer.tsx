@@ -2,6 +2,7 @@ import React from 'react';
 import { VideoPlayerProps, VideoPlayerStates } from './videoInterfaces';
 import { getStringFromSecond } from '../../commonUtils';
 import Control from './Control';
+import Subtitle from './Subtitle';
 import './VideoPlayer.css';
 
 export default class VideoPlayer extends React.Component<VideoPlayerProps, VideoPlayerStates> {
@@ -101,9 +102,6 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
     }
 
     video.ontimeupdate = () => {
-      const isActive = this.state.isMouseMove && this.state.isMouseOver;
-      if(!isActive) return;
-
       this.setState({
         videoTime: video.currentTime,
       })
@@ -198,6 +196,10 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
           ref = { this.video }
           onClick = { this.handlePlayButtonClick }
           autoPlay
+        />
+        <Subtitle 
+          videoTime = { this.state.videoTime }
+          subtitle = { this.props.subtitle }
         />
         <Control 
           isActive = {this.state.isMouseOver && this.state.isMouseMove}
