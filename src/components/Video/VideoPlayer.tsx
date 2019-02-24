@@ -72,6 +72,17 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
     self.ondblclick = () => {
       this.handleFullscreen();
     }
+
+    self.onfullscreenchange = () => {
+      this.setState({
+        isFullscreen: document.fullscreen,
+      })
+    }
+
+
+    this.setState({
+      isFullscreen: document.fullscreen,
+    })
   }
 
   attachToVideo(video: HTMLVideoElement | null) {
@@ -121,15 +132,11 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
 
     if(!self) return;
 
-    this.state.isFullscreen
+    document.fullscreen
     ? document.exitFullscreen()
-    .then(() => {
-      this.setState({ isFullscreen: false });
-    }).catch(e =>console.error(e))
+      .catch(e => console.error(e))
     : self.requestFullscreen()
-      .then(() => {
-        this.setState({ isFullscreen: true });
-      }).catch(e => console.error(e))
+      .catch(e => console.error(e));
   }
 
   handlePlayButtonClick() {
