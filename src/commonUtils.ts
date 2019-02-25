@@ -3,12 +3,56 @@ import { FileIndex } from './commonInterfaces';
 export async function getFileIndexesAsync(directoryUrl: string): Promise<FileIndex[]> {
   const response = await fetch(directoryUrl);
   const jsonBlob = await response.blob();
-  const jsonText = await readFileAsTextAsync(jsonBlob);
+  const jsonText = await readBlobAsTextAsync(jsonBlob);
   const json = JSON.parse(jsonText) as FileIndex[];
   return json;
 }
 
-export function readFileAsTextAsync(blob: Blob): Promise<string> {
+export async function readBlobAsTextAsync(blob: Blob): Promise<string> {
+  const arrayBuffer = await readBlobAsArrayBufferAsync(blob);
+  const encoding = await getTextEncodingFromArrayBuffer(arrayBuffer);
+  const decoder = new TextDecoder(encoding);
+  const text = decoder.decode(arrayBuffer);
+  return text;
+}
+
+export async function getTextEncodingFromArrayBuffer(arrayBuffer: ArrayBuffer) {
+  const encodingList = [
+    'utf8',
+    'euc-kr',
+  ]
+  
+  const promisesTestingEncoding: Promise<{ 
+      encoding: string,
+      errorCount: number,
+    }>[] = [];
+
+  encodingList.forEach(encoding => {
+    promisesTestingEncoding.push(
+      testEncoding(arrayBuffer, encoding)
+    );
+  });
+
+  const result =  await Promise.all(promisesTestingEncoding);
+  result.sort((a, b) => a.errorCount - b.errorCount);
+
+  return result[0].encoding
+}
+
+export async function testEncoding(arrayBuffer: ArrayBuffer, encoding: string): Promise<{
+  encoding: string,
+  errorCount: number,
+}> {
+  const decoder = new TextDecoder(encoding);
+  const text = decoder.decode(arrayBuffer);
+  
+  return {
+    encoding: encoding,
+    errorCount: (text.match(/�/g) || []).length 
+  }
+}
+
+export function readBlobAsArrayBufferAsync(blob: Blob): Promise<ArrayBuffer> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -20,11 +64,11 @@ export function readFileAsTextAsync(blob: Blob): Promise<string> {
     reader.onload = () => {
       const result = reader.result;
 
-      if (typeof result === 'string') resolve(result);
+      if (result instanceof ArrayBuffer) resolve(result);
       reject(new DOMException("Problem parsing file index json blob. type of result is not string."));
     };
 
-    reader.readAsText(blob);
+    reader.readAsArrayBuffer(blob);
   });
 }
 

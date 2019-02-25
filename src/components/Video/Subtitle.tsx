@@ -3,7 +3,7 @@ import Path from 'path';
 import SamiParser, { SamiParseResult, SubtitleFragment } from 'sami-parser';
 import { SubtitleProps, SubtitleStates } from './videoInterfaces';
 import { FileIndex } from '../../commonInterfaces';
-import { readFileAsTextAsync } from '../../commonUtils';
+import { readBlobAsTextAsync } from '../../commonUtils';
 import './Subtitle.css';
 import config from '../../config';
 
@@ -114,7 +114,7 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
 async function getSubtitleAsync(subtitleUrl: string): Promise<SamiParseResult> {
   const response = await fetch(subtitleUrl);
   const subtitleBlob = await response.blob();
-  const subtitleText = await readFileAsTextAsync(subtitleBlob);
+  const subtitleText = await readBlobAsTextAsync(subtitleBlob);
   const subtitle: SamiParseResult = SamiParser.parse(subtitleText);
   return subtitle;
 }
