@@ -74,16 +74,11 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
       this.handleFullscreen();
     }
 
-    self.ondblclick = () => {
-      this.handleFullscreen();
-    }
-
     self.onfullscreenchange = () => {
       this.setState({
         isFullscreen: document.fullscreen,
       })
     }
-
 
     this.setState({
       isFullscreen: document.fullscreen,
@@ -216,7 +211,6 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
         <video 
           src = { this.props.videoUrl || '' } 
           ref = { this.video }
-          onClick = { this.handlePlayButtonClick }
           autoPlay
         />
         <Subtitle 
