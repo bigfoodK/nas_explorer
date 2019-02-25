@@ -33,6 +33,8 @@ export interface VideoPlayerStates {
   videoTime: number;
   videoVolume: number;
   videoDuration: number;
+  subtitleLanguages: string[];
+  subtitleLanguage: string;
 }
 
 export interface MenuProps {
@@ -48,7 +50,10 @@ export interface ControlProps {
   videoVolume: number;
   videoDuration: number;
   videoTimeString: string;
+  subtitleLanguage: string;
+  subtitleLanguages: string[];
   videoDurationString: string;
+  setSubtitleLanguage: (language: string) => void;
   handleFullscreen: Function;
   handlePlayButtonClick: () => void;
   handleVolumeButtonClick: () => void;
@@ -59,6 +64,8 @@ export interface ControlProps {
 export interface SubtitleProps {
   videoTime: number;
   subtitle: FileIndex | null;
+  subtitleLanguage: string;
+  updateSubtitleLanguages: (languages: string[]) => void;
 }
 
 export interface SubtitleStates {

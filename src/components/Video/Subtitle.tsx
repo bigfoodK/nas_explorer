@@ -44,7 +44,15 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
 
     const subtitleUrl = config.debugHost + Path.join(config.dataUrlPrefix , subtitle.path);
     const samiParseResult = await getSubtitleAsync(subtitleUrl);
-    this.subtitle = samiParseResult.result;
+    this.subtitle = samiParseResult.result || [];
+
+    const languages = this.subtitle[0]
+      ? Object.keys(this.subtitle[0].languages).length
+        ? Object.keys(this.subtitle[0].languages)
+        : []
+      : [];
+      
+    this.props.updateSubtitleLanguages(languages);
   }
 
   setSubtitleText(text: string) {
@@ -69,16 +77,18 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
     const time = timeSecond * 1000;
 
     const now = subtitle[this.currentIndex];
+
+    const subtitleLanguage = this.props.subtitleLanguage;
     
     if(now) {
       const next = subtitle[this.currentIndex + 1];
 
       const nowStart = now.startTime;
       const nowEnd = now.endTime;
-      const nowText = now.languages['ko'] || '';
+      const nowText = now.languages[subtitleLanguage] || '';
       const nextStart = next ? next.startTime : Infinity;
       const nextEnd = next ? next.endTime : Infinity;
-      const nextText = next ? next.languages['ko'] || '' : '';
+      const nextText = next ? next.languages[subtitleLanguage] || '' : '';
 
       const isOnNow = (nowStart <= time) && (time <= nowEnd);
       if(isOnNow) return this.setSubtitleText(nowText);
@@ -97,7 +107,7 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
     const foundIndex = searchSubtitle(time, subtitle);
     if(foundIndex === -1) return this.setSubtitleText('');
     
-    const text = subtitle[foundIndex].languages['ko'] || '';
+    const text = subtitle[foundIndex].languages[subtitleLanguage] || '';
     this.setSubtitleText(text);
     this.currentIndex = foundIndex;
   }

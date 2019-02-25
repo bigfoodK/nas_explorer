@@ -31,6 +31,34 @@ export default class Control extends React.Component<ControlProps, {}> {
       )
     }
 
+    const subtitleButton = () => {
+      const languages = this.props.subtitleLanguages
+      
+      const dropdownItems = languages.map(language => {
+        return (
+          <div 
+            className = 'subtitle-dropdown-item'
+            onClick = { () => this.props.setSubtitleLanguage(language) }>
+            { language }
+          </div>
+        )
+      });
+      
+      return (
+        <div className = 'subtitle-button-container'>
+          <i className = "fas fa-closed-captioning" />
+          <div className = 'subtitle-dropdown-container'>
+            <div 
+              className = 'subtitle-dropdown-item'
+              onClick = { () => this.props.setSubtitleLanguage('') }>
+              no sub
+            </div>
+            { dropdownItems }
+          </div>
+        </div>
+      )
+    }
+
     const volumeButton = () => {
       const icon = this.props.videoVolume
         ? <i className = "fas fa-volume-up" />
@@ -86,6 +114,7 @@ export default class Control extends React.Component<ControlProps, {}> {
         {progrresString()}
         {volumeSlide()}
         {volumeButton()}
+        {subtitleButton()}
         <br />
         {progressSlide()}
       </ul>
