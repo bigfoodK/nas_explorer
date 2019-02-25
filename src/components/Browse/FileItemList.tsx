@@ -6,7 +6,8 @@ import './FileItemList.css';
 export default class FileItemList extends React.Component<FileItemListProps, any> {
   render() {
     const fileItemList = this.props.fileIndexes.map(fileIndex => {
-      return (<FileItem 
+      return (
+      <FileItem 
         fileIndex = {fileIndex}
         key = {fileIndex.path} 
       />)

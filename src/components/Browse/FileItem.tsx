@@ -62,13 +62,28 @@ export default class FileItem extends React.Component<FileItemProps, any> {
 
     return (
       <li className='file-item-container'>
-        <Link
-          title = {fileIndex.name}
-          className = 'file-item'
-          to = {url}
-        >
-        {fileType()}{fileName()}{fileModifiedAt()}{fileCreatedAt()}{fileSize()}
-        </Link>
+        {
+          fileIndex.type === 'binary'
+          ? (
+            <a 
+              title = { fileIndex.name }
+              className = 'file-item'
+              href = { url }
+            >
+              {fileType()}{fileName()}{fileModifiedAt()}{fileCreatedAt()}{fileSize()}
+            </a>
+          )
+          : (
+            <Link
+              title = { fileIndex.name }
+              className = 'file-item'
+              to = { url }
+            >
+              {fileType()}{fileName()}{fileModifiedAt()}{fileCreatedAt()}{fileSize()}
+            </Link>
+          )
+        }
+
       </li>
     );
   }
@@ -94,7 +109,7 @@ function getProperUrl(fileIndex: FileIndex) {
       return Path.join(config.videoUrlPrefix, filePath);
 
     default:
-      return Path.join(config.downloadUrlPrefix, filePath);
+      return config.debugHost + Path.join(config.dataUrlPrefix, filePath);
   }
 }
 

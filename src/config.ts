@@ -6,7 +6,6 @@ export default {
   imageUrlPrefix: '/explore/image',
   audioUrlPrefix: '/explore/audio',
   videoUrlPrefix: '/explore/video',
-  downloadUrlPrefix: '/explore/download',
   indexUrlPrefix: '/index',
   dataUrlPrefix: '/data',
 }
