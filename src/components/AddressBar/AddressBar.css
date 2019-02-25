@@ -1,0 +1,56 @@
+.address-bar {
+  height: 2em;
+  background-color: #222;
+  padding: 8px;
+  width: calc(100% - 16px);
+  margin-bottom: 16px;
+  color: #EEE;
+}
+
+.up-directory {
+  overflow: hidden;
+  vertical-align: sub;
+  display: inline-block;
+  padding: 0px;
+  width: 5%;
+  max-width: 1em;
+  margin: 0px;
+  color: #EEE;
+}
+
+.address-directory-bar {
+  display: inline-block;
+  background-color: #333;
+  width: calc(95% - 8px);
+  margin-left: 8px;
+}
+
+.address-directory-list {
+  list-style-type: none;
+  white-space: nowrap;
+  direction: rtl;
+  vertical-align: middle;
+  display: inline-block;
+  overflow: hidden;
+  height: 2em;
+  padding: 0px;
+  max-width: 100%;
+  margin: 0px;
+}
+
+.address-directory {
+  vertical-align: sub;
+  display: inline-block;
+  background-color: #444;
+  margin-left: 8px;
+}
+
+.link {
+  color: #EEE;
+  text-decoration: none;
+  padding: 0px 4px;
+}
+
+.link:hover {
+  background-color: #555;
+}
