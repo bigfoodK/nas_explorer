@@ -9,6 +9,21 @@ export default class Control extends React.Component<ControlProps, {}> {
   }
 
   render() {
+    const largePlayButton = () => {
+      const icon = this.props.isPlaying
+        ? <i className = "fas fa-pause" />
+        : <i className = "fas fa-play" />
+
+      return (
+        <a
+          className = 'large-play-button'
+          onClick = { this.props.handlePlayButtonClick }
+        >
+          { icon }
+        </a>
+      )
+    }
+
     const playButton = () => {
       const icon = this.props.isPlaying
         ? <i className = "fas fa-pause" />
@@ -121,21 +136,26 @@ export default class Control extends React.Component<ControlProps, {}> {
     }
 
     return (
-      <ul 
-        className = 'control-container'
-        style = {{opacity: this.props.isActive ? 1 : 0}}
-        onMouseEnter = { this.props.handleMouseEnterControl }
-        onMouseLeave = { this.props.handleMouseLeaveControl }
-      >
-        {playButton()}
-        {progrresString()}
-        {fullscreenButton()}
-        {volumeSlide()}
-        {volumeButton()}
-        {subtitleButton()}
-        <br />
-        {progressSlide()}
-      </ul>
+      <div style = {{
+        opacity: this.props.isActive ? 1 : 0,
+        pointerEvents: this.props.isActive ? 'all' : 'none',
+      }}>
+        { largePlayButton() }
+        <ul 
+          className = 'control-container'
+          onMouseEnter = { this.props.handleMouseEnterControl }
+          onMouseLeave = { this.props.handleMouseLeaveControl }
+        >
+          { playButton() }
+          { progrresString() }
+          { fullscreenButton() }
+          { volumeSlide() }
+          { volumeButton() }
+          { subtitleButton() }
+          <br />
+          { progressSlide() }
+        </ul>
+      </div>
     )
   }
 }
