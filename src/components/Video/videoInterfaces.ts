@@ -55,7 +55,7 @@ export interface ControlProps {
   subtitleLanguages: string[];
   videoDurationString: string;
   setSubtitleLanguage: (language: string) => void;
-  handleFullscreen: Function;
+  handleFullscreen: () => void;
   handlePlayButtonClick: () => void;
   handleMouseEnterControl: () => void;
   handleMouseLeaveControl: () => void;

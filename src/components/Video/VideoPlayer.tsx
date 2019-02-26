@@ -23,6 +23,7 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
     this.updateSubtitleLanguages = this.updateSubtitleLanguages.bind(this);
     this.setSubtitleLanguage = this.setSubtitleLanguage.bind(this);
     this.handleMouseStop = this.handleMouseStop.bind(this);
+    this.handleFullscreen = this.handleFullscreen.bind(this);
     this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
     this.handleMouseEnterControl = this.handleMouseEnterControl.bind(this);
     this.handleMouseLeaveControl = this.handleMouseLeaveControl.bind(this);

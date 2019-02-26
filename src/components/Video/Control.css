@@ -28,7 +28,7 @@
   float: left;
   text-align: left;
   padding-left: 8px;
-  width: calc(45% - 8px);
+  width: calc(35% - 8px);
   white-space: nowrap;
   overflow: hidden;
 }
@@ -88,6 +88,15 @@
   padding-right: 8px;
   width: calc(25% - 8px);
   max-width: 6em;
+}
+
+.fullscreen-button-container {
+  float: right;
+  padding-right: 8px;
+  width: calc(10% - 8px);
+  max-width: 1em;
+  overflow: hidden;
+  text-align: right;
 }
 
 .progress-slide-container {

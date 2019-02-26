@@ -90,6 +90,20 @@ export default class Control extends React.Component<ControlProps, {}> {
       )
     }
 
+    const fullscreenButton = () => {
+      const icon = this.props.isFullscreen
+        ? <i className = "fas fa-compress" />
+        : <i className = "fas fa-expand" />
+
+      return (
+        <li className = 'fullscreen-button-container'>
+          <a onClick = { this.props.handleFullscreen }>
+            { icon }
+          </a>
+        </li>
+      )
+    }
+
     const progressSlide = () => {
       return (
         <li className = 'progress-slide-container'>
@@ -115,6 +129,7 @@ export default class Control extends React.Component<ControlProps, {}> {
       >
         {playButton()}
         {progrresString()}
+        {fullscreenButton()}
         {volumeSlide()}
         {volumeButton()}
         {subtitleButton()}
