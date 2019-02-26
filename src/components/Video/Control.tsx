@@ -38,7 +38,8 @@ export default class Control extends React.Component<ControlProps, {}> {
         return (
           <div 
             className = 'subtitle-dropdown-item'
-            onClick = { () => this.props.setSubtitleLanguage(language) }>
+            onClick = { () => this.props.setSubtitleLanguage(language) }
+            key = { language }>
             { language }
           </div>
         )
