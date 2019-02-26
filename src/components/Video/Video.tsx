@@ -44,11 +44,11 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
       const currentVideoIndex = videos.findIndex(fileIndex => fileIndex.path === videoPath);
       if(currentVideoIndex === -1) throw Error('Video not found');
 
-      const nextVideo = currentVideoIndex - 1 >= 0
+      const previousVideo = currentVideoIndex - 1 >= 0
         ? videos[currentVideoIndex - 1]
         : null;
       const currentVideo = videos[currentVideoIndex];
-      const previousVideo = currentVideoIndex + 1 < videos.length
+      const nextVideo = currentVideoIndex + 1 < videos.length
         ? videos[currentVideoIndex + 1]
         : null;
       
