@@ -27,6 +27,7 @@ export interface VideoPlayerProps {
 
 export interface VideoPlayerStates {
   isMouseOver: boolean;
+  isMouseOverControl: boolean;
   isMouseMove: boolean;
   isFullscreen: boolean;
   isPlaying: boolean;
@@ -56,6 +57,8 @@ export interface ControlProps {
   setSubtitleLanguage: (language: string) => void;
   handleFullscreen: Function;
   handlePlayButtonClick: () => void;
+  handleMouseEnterControl: () => void;
+  handleMouseLeaveControl: () => void;
   handleVolumeButtonClick: () => void;
   handleVolumeChange: (event: React.FormEvent<HTMLInputElement>) => void;
   handleTimeChange: (event: React.FormEvent<HTMLInputElement>) => void;

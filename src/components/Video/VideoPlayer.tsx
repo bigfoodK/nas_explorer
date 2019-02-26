@@ -24,12 +24,15 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
     this.setSubtitleLanguage = this.setSubtitleLanguage.bind(this);
     this.handleMouseStop = this.handleMouseStop.bind(this);
     this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
+    this.handleMouseEnterControl = this.handleMouseEnterControl.bind(this);
+    this.handleMouseLeaveControl = this.handleMouseLeaveControl.bind(this);
     this.handleVolumeButtonClick = this.handleVolumeButtonClick.bind(this);
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
 
     this.state = {
       isMouseOver: false,
+      isMouseOverControl: false,
       isMouseMove: false,
       isFullscreen: false,
       isPlaying: false,
@@ -163,6 +166,18 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
     : video.pause();
   }
   
+  handleMouseEnterControl() {
+    this.setState({
+      isMouseOverControl: true,
+    });
+  }
+
+  handleMouseLeaveControl() {
+    this.setState({
+      isMouseOverControl: false,
+    });
+  }
+
   handleVolumeButtonClick() {
     const video = this.video.current;
     if(!video) return;
@@ -220,7 +235,8 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
           updateSubtitleLanguages = { this.updateSubtitleLanguages }
         />
         <Control 
-          isActive = {this.state.isMouseOver && this.state.isMouseMove}
+          isActive = { (this.state.isMouseOver && this.state.isMouseMove)
+            || this.state.isMouseOverControl }
           isFullscreen = { this.state.isFullscreen }
           isPlaying = { this.state.isPlaying }
           videoTime = { this.state.videoTime }
@@ -234,6 +250,8 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
           handleFullscreen = { this.handleFullscreen }
           handlePlayButtonClick = { this.handlePlayButtonClick }
           handleVolumeButtonClick = { this.handleVolumeButtonClick }
+          handleMouseEnterControl = { this.handleMouseEnterControl }
+          handleMouseLeaveControl = { this.handleMouseLeaveControl }
           handleVolumeChange = { this.handleVolumeChange }
           handleTimeChange = { this.handleTimeChange }
         />

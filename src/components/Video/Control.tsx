@@ -110,6 +110,8 @@ export default class Control extends React.Component<ControlProps, {}> {
       <ul 
         className = 'control-container'
         style = {{opacity: this.props.isActive ? 1 : 0}}
+        onMouseEnter = { this.props.handleMouseEnterControl }
+        onMouseLeave = { this.props.handleMouseLeaveControl }
       >
         {playButton()}
         {progrresString()}
