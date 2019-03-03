@@ -32,7 +32,7 @@
 
 .file-name {
   float: left;
-  width: calc(40% - 8px);
+  width: calc(30% - 8px);
   text-align: left;
   padding-left: 8px;
 }
@@ -45,14 +45,14 @@
 
 .file-createdAt {
   float: right;
-  width: calc(15% - 8px);
+  width: calc(20% - 8px);
   text-align: right;
   padding-left: 8px;
 }
 
 .file-modifiedAt {
   float: right;
-  width: calc(15% - 8px);
+  width: calc(20% - 8px);
   text-align: right;
   padding-left: 8px;
 }
@@ -61,4 +61,70 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .file-type {
+    width: calc(10% - 4px);
+  }
+  
+  .file-name {
+    width: calc(45% - 8px);
+  }
+  
+  .file-size {
+    width: 15%;
+  }
+  
+  .file-createdAt {
+    display: none;
+  }
+  
+  .file-modifiedAt {
+    width: calc(30% - 8px);
+  }
+}
+
+@media (max-width: 768px) {
+  .file-type {
+    width: calc(10% - 4px);
+  }
+  
+  .file-name {
+    width: calc(65% - 8px);
+  }
+  
+  .file-size {
+    width: 25%;
+  }
+  
+  .file-createdAt {
+    display: none;
+  }
+  
+  .file-modifiedAt {
+    display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .file-type {
+    width: calc(20% - 4px);
+  }
+  
+  .file-name {
+    width: calc(80% - 8px);
+  }
+  
+  .file-size {
+    display: none;
+  }
+  
+  .file-createdAt {
+    display: none;
+  }
+  
+  .file-modifiedAt {
+    display: none;
+  }
 }
