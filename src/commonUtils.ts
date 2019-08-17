@@ -153,9 +153,9 @@ export function getStringFromSecond(rawSecond: number) {
   minute %= 60;
   
   // Padding left with 0
-  const secondString = (`0${second.toFixed(0)}`).slice(-2);
-  const minuteString = (`0${minute.toFixed(0)}`).slice(-2);
-  const hourString = (`0${hour.toFixed(0)}`).slice(-2);
+  const secondString = (`0${Math.floor(second)}`).slice(-2);
+  const minuteString = (`0${Math.floor(minute)}`).slice(-2);
+  const hourString = (`0${Math.floor(hour)}`).slice(-2);
 
   return hour < 1
     ? `${minuteString}:${secondString}`
