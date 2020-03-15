@@ -28,11 +28,16 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
     const directoryUrl = config.debugHost + Path.join(config.indexUrlPrefix, directoryPath || '');
 
     getFileIndexesAsync(directoryUrl)
-    .then(result => {
-      result.sort(getFileIndexCompareFunction('name'));
+    .then(response => {
+      if (!response.isSuccessful) {
+        console.error(response.message);
+        return;
+      }
+      const { fileIndexes } = response.data;
+      fileIndexes.sort(getFileIndexCompareFunction('name'));
       this.setState({
         sortBy: this.state.sortBy,
-        fileIndexes: result,
+        fileIndexes,
       });
     });
   }

@@ -1,10 +1,9 @@
 import { FileIndex } from './commonInterfaces';
+import { JSONResponse, ServeIndexResponseMessage, ServeIndexResponseData } from './responseTypes';
 
-export async function getFileIndexesAsync(directoryUrl: string): Promise<FileIndex[]> {
+export async function getFileIndexesAsync(directoryUrl: string): Promise<JSONResponse<ServeIndexResponseMessage, ServeIndexResponseData>> {
   const response = await fetch(directoryUrl);
-  const jsonBlob = await response.blob();
-  const jsonText = await readBlobAsTextAsync(jsonBlob);
-  const json = JSON.parse(jsonText) as FileIndex[];
+  const json = await response.json() as JSONResponse<ServeIndexResponseMessage, ServeIndexResponseData>;
   return json;
 }
 

@@ -38,7 +38,14 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
     const directoryUrl = config.debugHost + Path.join(config.indexUrlPrefix, directoryPath);
 
     getFileIndexesAsync(directoryUrl)
-    .then(fileIndexes => {
+    .then(response => {
+      if (!response.isSuccessful) {
+        console.error(response.message);
+        return;
+      }
+
+      const { fileIndexes } = response.data;
+
       const videos = fileIndexes.filter(fileIndex => fileIndex.type === FileType.video);
       videos.sort(getFileIndexCompareFunction('name'));
       
