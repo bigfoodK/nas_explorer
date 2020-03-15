@@ -7,6 +7,7 @@ import VideoPlayer from './VideoPlayer';
 import Menu from './Menu';
 import './Video.css';
 import config from '../../config';
+import { FileType } from '../../commonInterfaces';
 
 export default class Video extends React.Component<RouteProps & VideoProps, VideoStates> {
   constructor(props: RouteProps & VideoProps) {
@@ -38,7 +39,7 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
 
     getFileIndexesAsync(directoryUrl)
     .then(fileIndexes => {
-      const videos = fileIndexes.filter(fileIndex => fileIndex.type === 'video');
+      const videos = fileIndexes.filter(fileIndex => fileIndex.type === FileType.video);
       videos.sort(getFileIndexCompareFunction('name'));
       
       const currentVideoIndex = videos.findIndex(fileIndex => fileIndex.path === videoPath);

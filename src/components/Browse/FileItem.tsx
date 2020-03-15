@@ -1,7 +1,7 @@
 import React from 'react';
 import Path from 'path';
 import { FileItemProps } from './browseInterfaces';
-import { FileIndex } from '../../commonInterfaces';
+import { FileIndex, FileType } from '../../commonInterfaces';
 import { getReadableStringFromByteSize, getLocaleStringFromMs } from '../../commonUtils';
 import { Link } from 'react-router-dom'
 import './FileItem.css';
@@ -14,8 +14,7 @@ export default class FileItem extends React.Component<FileItemProps, any> {
 
     const fileType = () => {
       return (
-        <div className='file-type text-ellipsis'
-          title = {fileIndex.type}>
+        <div className='file-type text-ellipsis'>
           {getProperTypeIcon(fileIndex)}
         </div>
       )
@@ -63,7 +62,7 @@ export default class FileItem extends React.Component<FileItemProps, any> {
     return (
       <li className='file-item-container'>
         {
-          fileIndex.type === 'binary'
+          fileIndex.type === FileType.binary
           ? (
             <a 
               title = { fileIndex.name }
@@ -93,19 +92,19 @@ function getProperUrl(fileIndex: FileIndex) {
   const filePath = fileIndex.path;
 
   switch(fileIndex.type) {
-    case 'directory':
+    case FileType.directory:
       return Path.join(config.browseUrlPrefix, filePath);
 
-    case 'text':
+    case FileType.text:
       return Path.join(config.textUrlPrefix, filePath);
 
-    case 'image':
+    case FileType.image:
       return Path.join(config.imageUrlPrefix, filePath);
 
-    case 'audio':
+    case FileType.audio:
       return Path.join(config.audioUrlPrefix, filePath);
 
-    case 'video':
+    case FileType.video:
       return Path.join(config.videoUrlPrefix, filePath);
 
     default:
@@ -115,19 +114,19 @@ function getProperUrl(fileIndex: FileIndex) {
 
 function getProperTypeIcon(fileIndex: FileIndex) {
   switch(fileIndex.type) {
-    case 'directory':
+    case FileType.directory:
       return <i className = "fas fa-folder" />
 
-    case 'text':
+    case FileType.text:
       return <i className = "far fa-file-alt" />
 
-    case 'image':
+    case FileType.image:
       return <i className = "fas fa-image" />
 
-    case 'audio':
+    case FileType.audio:
       return <i className = "fas fa-volume-up" />
 
-    case 'video':
+    case FileType.video:
       return <i className = "fas fa-video" />
 
     default:

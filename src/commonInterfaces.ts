@@ -1,5 +1,14 @@
-export interface FileIndex {
-  type: ('directory' | 'text' | 'image' | 'audio' | 'video' | 'binary');
+export enum FileType {
+  'directory',
+  'text',
+  'image',
+  'audio',
+  'video',
+  'binary',
+}
+
+export type FileIndex = {
+  type: FileType;
   name: string;
   path: string;
   size: number;

@@ -1,6 +1,5 @@
 export default {
-  // 배포할땐 지웁시다. 제발
-  debugHost: 'http://localhost:3000',
+  debugHost: '',
   browseUrlPrefix: '/explore/browse',
   textUrlPrefix: '/explore/text',
   imageUrlPrefix: '/explore/image',
@@ -9,4 +8,3 @@ export default {
   indexUrlPrefix: '/index',
   dataUrlPrefix: '/data',
 }
-

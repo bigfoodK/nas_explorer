@@ -73,19 +73,10 @@ export function readBlobAsArrayBufferAsync(blob: Blob): Promise<ArrayBuffer> {
 }
 
 export function getFileIndexCompareFunction(sortBy: string) {
-  const typeOrder = {
-    directory: 0,
-    text: 1,
-    image: 2,
-    audio: 3,
-    video: 4,
-    binary: 5,
-  };
-
   switch (sortBy) {
     case 'type':
       return (a:FileIndex, b:FileIndex) => {
-        return typeOrder[a.type] - typeOrder[b.type];
+        return a.type - b.type;
       }
 
     case 'size':
