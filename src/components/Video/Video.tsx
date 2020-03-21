@@ -2,12 +2,13 @@ import React from 'react';
 import Path from 'path';
 import { RouteProps } from 'react-router-dom';
 import { VideoProps, VideoStates } from './videoInterfaces';
-import { getFileIndexesAsync, getFileIndexCompareFunction } from '../../commonUtils';
+import { getFileIndexCompareFunction } from '../../commonUtils';
 import VideoPlayer from './VideoPlayer';
 import Menu from './Menu';
 import './Video.css';
 import config from '../../config';
 import { FileType } from '../../commonInterfaces';
+import getFileIndexesAsync from '../../restAPI/explore/getFileIndexesAsync';
 
 export default class Video extends React.Component<RouteProps & VideoProps, VideoStates> {
   constructor(props: RouteProps & VideoProps) {
@@ -35,9 +36,8 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
     const videoPath = Path.join('/', rawVideoPath);
     const directoryPath = Path.join(videoPath, '..');
     const videoUrl = config.debugHost + Path.join(config.dataUrlPrefix, videoPath);
-    const directoryUrl = config.debugHost + Path.join(config.indexUrlPrefix, directoryPath);
 
-    getFileIndexesAsync(directoryUrl)
+    getFileIndexesAsync(directoryPath)
     .then(response => {
       if (!response.isSuccessful) {
         console.error(response.message);

@@ -1,11 +1,10 @@
 import React from 'react';
-import Path from 'path';
 import { RouteProps } from 'react-router-dom';
 import { BrowseProps, BrowseStates } from './browseInterfaces';
-import { getFileIndexesAsync, getFileIndexCompareFunction } from '../../commonUtils';
+import { getFileIndexCompareFunction } from '../../commonUtils';
 import FileItemList from './FileItemList';
+import RestAPI from '../../restAPI';;
 import './Browse.css';
-import config from '../../config';
 
 export default class Browse extends React.Component<BrowseProps & RouteProps, BrowseStates> {
   constructor(props: BrowseProps & RouteProps) {
@@ -25,9 +24,7 @@ export default class Browse extends React.Component<BrowseProps & RouteProps, Br
   }
 
   renewFileIndexesState(directoryPath: string) {
-    const directoryUrl = config.debugHost + Path.join(config.indexUrlPrefix, directoryPath || '');
-
-    getFileIndexesAsync(directoryUrl)
+    RestAPI.Explore.getFileIndexesAsync(directoryPath)
     .then(response => {
       if (!response.isSuccessful) {
         console.error(response.message);

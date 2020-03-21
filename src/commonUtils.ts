@@ -1,11 +1,4 @@
 import { FileIndex } from './commonInterfaces';
-import { JSONResponse, ServeIndexResponseMessage, ServeIndexResponseData } from './responseTypes';
-
-export async function getFileIndexesAsync(directoryUrl: string): Promise<JSONResponse<ServeIndexResponseMessage, ServeIndexResponseData>> {
-  const response = await fetch(directoryUrl);
-  const json = await response.json() as JSONResponse<ServeIndexResponseMessage, ServeIndexResponseData>;
-  return json;
-}
 
 export async function readBlobAsTextAsync(blob: Blob): Promise<string> {
   const arrayBuffer = await readBlobAsArrayBufferAsync(blob);

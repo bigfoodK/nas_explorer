@@ -5,6 +5,6 @@ export default {
   imageUrlPrefix: '/explore/image',
   audioUrlPrefix: '/explore/audio',
   videoUrlPrefix: '/explore/video',
-  indexUrlPrefix: '/index',
+  indexUrlPrefix: '/restAPI/explore/index',
   dataUrlPrefix: '/data',
 }
