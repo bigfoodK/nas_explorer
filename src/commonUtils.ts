@@ -1,5 +1,11 @@
 import { FileIndex } from './commonInterfaces';
 
+export type FetchRestAPIOption = {
+  url: string,
+  body?: object,
+  method?: 'POST' | 'GET',
+}
+
 export async function readBlobAsTextAsync(blob: Blob): Promise<string> {
   const arrayBuffer = await readBlobAsArrayBufferAsync(blob);
   const encoding = await getTextEncodingFromArrayBuffer(arrayBuffer);
@@ -143,4 +149,22 @@ export function getStringFromSecond(rawSecond: number) {
   return hour < 1
     ? `${minuteString}:${secondString}`
     : `${hourString}:${minuteString}:${secondString}`
+}
+
+export async function fetchRestAPI(option: FetchRestAPIOption) {
+  const {
+    url,
+    body,
+    method,
+  } = option;
+  const Authorization = sessionStorage.getItem('AuthorizationToken');
+  const response = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(Authorization ? { Authorization } : undefined),
+    },
+    method: method || 'POST',
+    body: JSON.stringify(body || {}),
+  });
+  return response;
 }

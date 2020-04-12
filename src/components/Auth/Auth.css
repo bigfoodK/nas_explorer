@@ -1,0 +1,39 @@
+.auth {
+  box-sizing: border-box;
+  display: flex;
+  overflow: hidden;
+  display: fixed;
+  justify-content: center;
+  text-align: center;
+  background-color: #444;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  z-index: 5000;
+  transition: all 0.3s ease;
+  color: #FFF;
+}
+
+#auth-toggle-button {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  text-align: left;
+  height: 2rem;
+  line-height: 2rem;
+  padding: 0px .5rem;
+  justify-self: left;
+  cursor: pointer;
+}
+
+.auth .button {
+  margin-top: .25rem;
+  cursor: pointer;
+  padding: .25rem .5rem;
+  background-color: #666;
+  transition: all .3s ease;
+}
+
+.auth .button:hover {
+  background-color: #777;
+}
