@@ -1,4 +1,5 @@
 import React from 'react';
+import 'fullscreen-polyfill';
 import { VideoPlayerProps, VideoPlayerStates } from './videoInterfaces';
 import { getStringFromSecond } from '../../commonUtils';
 import Control from './Control';
