@@ -65,7 +65,13 @@ export default class Video extends React.Component<RouteProps & VideoProps, Vide
 
       const currentSubtitle = fileIndexes.find(fileIndex => {
         const extName = Path.extname(fileIndex.name);
-        if(extName !== ('.smi' || '.SMI')) return false;
+        if(![
+          '.vtt',
+          '.srt',
+        ].includes(extName)) {
+          return false;
+        }
+        
         if(Path.basename(fileIndex.name, extName) !== currentVideoName) return false;
         return true;
       }) || null;

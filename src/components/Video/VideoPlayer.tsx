@@ -21,8 +21,6 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
     this.volumeBeforeMute = 0;
     this.videoDurationString = '00:00';
 
-    this.updateSubtitleLanguages = this.updateSubtitleLanguages.bind(this);
-    this.setSubtitleLanguage = this.setSubtitleLanguage.bind(this);
     this.handleMouseStop = this.handleMouseStop.bind(this);
     this.handleFullscreen = this.handleFullscreen.bind(this);
     this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
@@ -41,8 +39,6 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
       videoTime: 0,
       videoVolume: 0.5,
       videoDuration: 0,
-      subtitleLanguage: '',
-      subtitleLanguages: [],
     }
 
   }
@@ -120,24 +116,6 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
 
     this.setState({
       videoVolume: video.volume,
-    })
-  }
-
-  updateSubtitleLanguages(languages: string[]) {
-    languages.length
-      ? this.setState({
-        subtitleLanguage: languages[0],
-        subtitleLanguages: languages,
-        })
-      : this.setState({
-        subtitleLanguage: '',
-        subtitleLanguages: [],
-      });
-  }
-
-  setSubtitleLanguage(language: string) {
-    this.setState({
-      subtitleLanguage: language,
     })
   }
 
@@ -233,8 +211,6 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
         <Subtitle 
           videoTime = { this.state.videoTime }
           subtitle = { this.props.subtitle }
-          subtitleLanguage = { this.state.subtitleLanguage }
-          updateSubtitleLanguages = { this.updateSubtitleLanguages }
         />
         <Control 
           isActive = { (this.state.isMouseOver && this.state.isMouseMove)
@@ -245,10 +221,7 @@ export default class VideoPlayer extends React.Component<VideoPlayerProps, Video
           videoVolume = { this.state.videoVolume }
           videoDuration = { this.state.videoDuration }
           videoTimeString = { getStringFromSecond(this.state.videoTime) }
-          subtitleLanguage = { this.state.subtitleLanguage }
-          subtitleLanguages = { this.state.subtitleLanguages }
           videoDurationString = { this.videoDurationString }
-          setSubtitleLanguage = { this.setSubtitleLanguage }
           handleFullscreen = { this.handleFullscreen }
           handlePlayButtonClick = { this.handlePlayButtonClick }
           handleVolumeButtonClick = { this.handleVolumeButtonClick }

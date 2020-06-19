@@ -1,14 +1,14 @@
 import React from 'react';
 import Path from 'path';
-import SamiParser, { SamiParseResult, SubtitleFragment } from 'sami-parser';
 import { SubtitleProps, SubtitleStates } from './videoInterfaces';
 import { FileIndex } from '../../commonInterfaces';
 import { readBlobAsTextAsync } from '../../commonUtils';
 import './Subtitle.css';
 import config from '../../config';
+import { subTitleType, parse } from 'subtitle';
 
 export default class Subtitle extends React.Component<SubtitleProps, SubtitleStates> {
-  subtitle: SubtitleFragment[];
+  subtitle: subTitleType[];
   subtitleIndex: FileIndex | null;
   currentText: string;
   currentIndex: number;
@@ -44,15 +44,7 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
 
     const subtitleUrl = config.debugHost + Path.join(config.dataUrlPrefix , subtitle.path);
     const samiParseResult = await getSubtitleAsync(subtitleUrl);
-    this.subtitle = samiParseResult.result || [];
-
-    const languages = this.subtitle[0]
-      ? Object.keys(this.subtitle[0].languages).length
-        ? Object.keys(this.subtitle[0].languages)
-        : []
-      : [];
-      
-    this.props.updateSubtitleLanguages(languages);
+    this.subtitle = samiParseResult || [];
   }
 
   setSubtitleText(text: string) {
@@ -71,24 +63,22 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
     });
   }
 
-  updateSubtitleText(timeSecond: number, subtitle: SubtitleFragment[]) {
+  updateSubtitleText(timeSecond: number, subtitle: subTitleType[]) {
     if(!subtitle) return this.setSubtitleText('');
 
     const time = timeSecond * 1000;
 
     const now = subtitle[this.currentIndex];
-
-    const subtitleLanguage = this.props.subtitleLanguage;
     
     if(now) {
       const next = subtitle[this.currentIndex + 1];
 
-      const nowStart = now.startTime;
-      const nowEnd = now.endTime;
-      const nowText = now.languages[subtitleLanguage] || '';
-      const nextStart = next ? next.startTime : Infinity;
-      const nextEnd = next ? next.endTime : Infinity;
-      const nextText = next ? next.languages[subtitleLanguage] || '' : '';
+      const nowStart = now.start;
+      const nowEnd = now.end;
+      const nowText = now.text || '';
+      const nextStart = next ? next.start : Infinity;
+      const nextEnd = next ? next.end : Infinity;
+      const nextText = next ? next.text || '' : '';
 
       const isOnNow = (nowStart <= time) && (time <= nowEnd);
       if(isOnNow) return this.setSubtitleText(nowText);
@@ -107,7 +97,7 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
     const foundIndex = searchSubtitle(time, subtitle);
     if(foundIndex === -1) return this.setSubtitleText('');
     
-    const text = subtitle[foundIndex].languages[subtitleLanguage] || '';
+    const text = subtitle[foundIndex].text || '';
     this.setSubtitleText(text);
     this.currentIndex = foundIndex;
   }
@@ -121,15 +111,15 @@ export default class Subtitle extends React.Component<SubtitleProps, SubtitleSta
   }
 }
 
-async function getSubtitleAsync(subtitleUrl: string): Promise<SamiParseResult> {
+async function getSubtitleAsync(subtitleUrl: string): Promise<subTitleType[]> {
   const response = await fetch(subtitleUrl);
   const subtitleBlob = await response.blob();
   const subtitleText = await readBlobAsTextAsync(subtitleBlob);
-  const subtitle: SamiParseResult = SamiParser.parse(subtitleText);
+  const subtitle: subTitleType[] = parse(subtitleText);
   return subtitle;
 }
 
-function searchSubtitle(time: number, subtitle: SubtitleFragment[]) {
+function searchSubtitle(time: number, subtitle: subTitleType[]) {
   if(subtitle.length === 0) return -1;
 
   let head = 0;
@@ -140,9 +130,9 @@ function searchSubtitle(time: number, subtitle: SubtitleFragment[]) {
 
   while(head <= tail) {
     body = Math.floor((head + tail) / 2);
-    start = subtitle[body].startTime;
+    start = subtitle[body].start;
     end = subtitle[body + 1]
-    ? subtitle[body + 1].startTime
+    ? subtitle[body + 1].start
     : Infinity;
 
     if(time < start) tail = body - 1;

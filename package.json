@@ -8,6 +8,7 @@
     "@types/react": "16.8.3",
     "@types/react-dom": "16.8.2",
     "@types/react-router-dom": "^4.3.1",
+    "@types/subtitle": "^2.0.2",
     "@types/video.js": "^7.3.9",
     "fullscreen-polyfill": "^1.0.2",
     "react": "^16.8.2",
@@ -15,6 +16,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
     "sami-parser": "^0.5.3",
+    "subtitle": "^2.0.3",
     "typescript": "3.3.3",
     "video.js": "^7.8.2"
   },
